@@ -1,0 +1,28 @@
+.startViewContainer {
+  height: 100vh;
+}
+
+.logo {
+    max-height: 15vh;
+    width: 90vw;;
+}
+.searchAndIcons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    input {
+        width: 500px;
+    }
+    
+}
+.categories { 
+    ul {
+        padding: 0;
+    }
+    li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: fit-content;
+    }
+}
