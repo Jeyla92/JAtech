@@ -81,3 +81,52 @@
   outline:none;
   box-shadow:0 0 0 3px #b9d2ff;
 }
+
+
+
+
+.content { padding: 24px; flex: 1; }
+.form { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+
+.form label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
+.form input[type="text"],
+.form input[type="number"],
+.form textarea,
+.form select {
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-weight: 400;
+}
+
+.hint {
+  font-weight: 400;
+  font-size: 12px;
+  margin-left: 8px;
+  color: #666;
+}
+
+.note {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.selectWrap { position: relative; max-width: 320px; }
+.primary {
+  width: fit-content;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid #222;
+  background: #fff;
+  cursor: pointer;
+}
+
+.error {
+  color: #b00020;
+  background: #ffeef0;
+  border: 1px solid #ffccd1;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
