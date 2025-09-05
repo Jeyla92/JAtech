@@ -1,0 +1,59 @@
+
+.wrap {
+  max-width: 640px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.hint {
+  margin-top: -6px;
+  margin-bottom: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+/* ---- Mobil-stack för tabellen (<640px) ---- */
+@media (max-width:639px){
+  .categoriesTable table thead{ display:none; }
+  .categoriesTable table,
+  .categoriesTable tbody,
+  .categoriesTable tr,
+  .categoriesTable td{
+    display:block;
+    width:100%;
+  }
+  .categoriesTable tr{
+    border:2px solid #2f2f2f;
+    border-radius:8px;
+    padding:6px;
+    margin-bottom:12px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .categoriesTable td{
+    border:0;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    padding:8px 10px;
+  }
+  .categoriesTable td::before{
+    content: attr(data-label);
+    font-weight:600;
+    color:#666;
+  }
+}
+

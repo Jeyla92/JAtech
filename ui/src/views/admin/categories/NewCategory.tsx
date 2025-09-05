@@ -41,7 +41,7 @@ export const NewCategory: React.FC = () => {
 
       <div className="display-flex">
         <aside className="admin-sidebar">
-          <a href="/admin/categories/products">Produkter</a>
+          <a href="/admin/products">Produkter</a>
           <a href="/admin/categories/list-categories">Kategorier</a>
         </aside>
 

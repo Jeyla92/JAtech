@@ -1,0 +1,4 @@
+-- database: c:\Users\Aljosa\Desktop\JAtech\api\db\database.db
+
+SELECT * FROM categories, products WHERE categories.id = products.categoryId AND categories.id=1;
+

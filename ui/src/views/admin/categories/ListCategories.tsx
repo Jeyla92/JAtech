@@ -17,7 +17,7 @@ export const ListCategories: React.FC = () => {
             </div>
             <div className="display-flex">
                 <div className="admin-sidebar">
-                    <a href="/admin/categories/products">Produkter</a>
+                    <a href="/admin/products">Produkter</a>
                     <a href="/admin/categories/list-categories">Kategorier</a>   
                 </div>
                 <div className={styles.listCategoriesContent}>

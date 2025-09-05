@@ -1,28 +1,156 @@
-.startViewContainer {
-  height: 100vh;
+/* ============ BAS (mobil <640px) ============ */
+.startViewContainer{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
 }
 
-.logo {
-    max-height: 15vh;
-    width: 90vw;;
+/* Bild (hero) – fyll bredd, ingen stretch */
+.logo{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:cover;
+  border-radius:12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  margin: 0 0 12px 0;
 }
-.searchAndIcons {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    input {
-        width: 500px;
-    }
-    
+
+/* Sök + ikoner: mobil = staplat, input fullbredd */
+.searchAndIcons{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin: 8px 0 16px;
 }
-.categories { 
-    ul {
-        padding: 0;
-    }
-    li {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        width: fit-content;
-    }
+.searchAndIcons input{
+  flex:1 1 100%;
+  min-width:0;
+  border:1px solid var(--border, #e5e7eb);
+  border-radius:999px;       /* pill-form som i wireframe */
+  padding:12px 16px;
+  min-height:44px;
+  font-size:16px;
+  background:#fff;
+}
+
+/* Ikonhöljen */
+.searchAndIcons > div{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px; height:40px;
+  border:1px solid var(--border, #e5e7eb);
+  border-radius:999px;
+  background:#fff;
+}
+
+/* Kategorier: vertikal lista på mobil */
+.categories ul{
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.categories li{
+  margin: 6px 0;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  width: fit-content;
+}
+
+/* ============ ≥640px (tablet) ============ */
+/* Gör den översta sektionen (bild + sök) till 2-kolumns grid:
+   [ HERO ] [ SÖK + IKONER ]  */
+@media (min-width:640px){
+  /* "toppsektionen" = första barn-diven i containern */
+  .startViewContainer > div:first-child{
+    display:grid;
+    grid-template-columns: minmax(260px, 360px) 1fr;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  /* Hjälpmarginal under bilden på tablet/desktop */
+  .startViewContainer > div:first-child > div:first-child{
+    margin-bottom: 8px;
+  }
+
+  .logo{
+    border-radius: 10px;
+  }
+
+  /* Sök/ikoner: på högerkolumn – grid med [input][ikon][ikon] */
+  .searchAndIcons{
+    display:grid;
+    grid-template-columns: 1fr auto auto;
+    column-gap: 16px;
+    row-gap: 8px;
+    align-items:center;
+    margin: 0;                 /* tajtare som i wireframe */
+  }
+  .searchAndIcons input{
+    grid-column: 1 / 2;
+    flex: unset;               /* ta bort mobilens flex */
+  }
+
+  /* Kategorier: horisontell meny under bilden (vänster) */
+  .categories ul{
+    display:flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .categories li{
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+/* ============ ≥1024px (desktop) ============ */
+@media (min-width:1024px){
+  /* Gör vänster kolumn lite bredare som i wireframe */
+  .startViewContainer > div:first-child{
+    grid-template-columns: 400px 1fr;
+    column-gap: 32px;
+  }
+
+  /* Begränsa bredden på sökområdet så det inte blir för långt */
+  .searchAndIcons{
+    grid-template-columns: 520px auto auto; /* input ≈ 520px */
+    justify-content: start;
+    column-gap: 20px;
+  }
+
+  .categories ul{
+    gap: 24px;
+  }
+  .categories li{
+    font-size: 20px;
+  }
+}
+
+/* --- extra mellanrum mellan sökrutan och första ikonen (hjärtat) --- */
+.searchAndIcons > div:first-of-type {
+  margin-left: 8px;       /* mobil < 640 */
+}
+
+@media (min-width: 640px) {
+  /* större mellanrum i grid-läget */
+  .searchAndIcons { 
+    column-gap: 28px;     /* justera vid behov: 24–36px */
+  }
+  .searchAndIcons > div:first-of-type {
+    margin-left: 12px;    /* extra luft mellan input och hjärta */
+  }
+}
+
+@media (min-width: 1024px) {
+  .searchAndIcons { 
+    column-gap: 32px; 
+  }
+  .searchAndIcons > div:first-of-type {
+    margin-left: 16px;
+  }
 }

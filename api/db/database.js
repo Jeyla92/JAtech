@@ -1,3 +1,4 @@
+// db/database.js
 const Database = require('better-sqlite3');
 const db = new Database('db/database.db');
 
@@ -16,18 +17,18 @@ db.exec(`CREATE TABLE IF NOT EXISTS products (
   price REAL NOT NULL,
   categoryId INTEGER,
   FOREIGN KEY (categoryId) REFERENCES categories(id)
-  )`); 
+)`);
 
-const insertCategory = db.prepare('INSERT INTO categories (name, URL) VALUES (?, ?)');
-const getCategoryById = db.prepare('SELECT * FROM categories WHERE id = ?');
+const insertCategory   = db.prepare('INSERT INTO categories (name, URL) VALUES (?, ?)');
+const getCategoryById  = db.prepare('SELECT * FROM categories WHERE id = ?');
 const getAllCategories = db.prepare('SELECT * FROM categories');
-const insertProduct = db.prepare('INSERT INTO products (name, description, picture_URL, brand, price, categoryId) VALUES (?, ?, ?, ?, ?, ?)');
+const insertProduct    = db.prepare('INSERT INTO products (name, description, picture_URL, brand, price, categoryId) VALUES (?, ?, ?, ?, ?, ?)');
+const getAllProducts   = db.prepare('SELECT id, name, brand, price FROM products ORDER BY id DESC');
 
-
-  
-
-
-
-
-module.exports = { insertCategory, getCategoryById, getAllCategories, insertProduct };
-
+module.exports = {
+  insertCategory,
+  getCategoryById,
+  getAllCategories,
+  insertProduct,
+  getAllProducts
+};
