@@ -1,5 +1,5 @@
 // ui/src/App.tsx
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
 import RootLayout from "./RootLayout";
@@ -11,17 +11,19 @@ import CategoryPage from "./views/category/CategoryPage";
 import SearchResultsPage from "./views/search/SearchResultsPage";
 
 // Admin-sidor
-import ProductsList from "./views/admin/ProductsList";
+import ProductsList from "./views/admin/products/ProductsList";
 import NewProduct from "./views/admin/products/NewProduct";
 import { ListCategories } from "./views/admin/categories/ListCategories";
 import { NewCategory } from "./views/admin/categories/NewCategory";
 
 export default function App() {
+
+  const isAdmin = window.location.pathname.startsWith('/admin')
   return (
     <BrowserRouter>
       <Routes>
         {/* Allt under RootLayout får gemensam Header */}
-        <Route element={<RootLayout />}>
+        <Route element={!isAdmin && <RootLayout />}>
           {/* Publika */}
           <Route path="/" element={<StartView />} />
 
@@ -39,8 +41,8 @@ export default function App() {
           <Route path="/admin/products/new" element={<NewProduct />} />
           <Route path="/admin/categories/list-categories" element={<ListCategories />} />
           <Route path="/admin/categories/new-category" element={<NewCategory />} />
-          <Route path="/admin/categories" element={<Navigate to="/admin/categories/list-categories" replace />} />
-          <Route path="/admin/categories/new" element={<Navigate to="/admin/categories/new-category" replace />} />
+          {/* <Route path="/admin/categories" element={<Navigate to="/admin/categories/list-categories" replace />} />
+          <Route path="/admin/categories/new" element={<Navigate to="/admin/categories/new-category" replace />} /> */}
 
           {/* 404 */}
           <Route path="*" element={<div style={{ padding: 16 }}><h2>Sidan finns inte</h2></div>} />

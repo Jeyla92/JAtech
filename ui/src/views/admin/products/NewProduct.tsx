@@ -10,6 +10,7 @@ export default function NewProduct() {
   // fält
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [brand, setBrand] = useState('')
   const [sku, setSku] = useState('')
   const [price, setPrice] = useState<string>('')
   const [categoryId, setCategoryId] = useState<number | ''>('')
@@ -40,6 +41,7 @@ export default function NewProduct() {
     const fd = new FormData()
     fd.append('name', name.trim())
     fd.append('description', description)
+    fd.append('brand', brand.trim())
     fd.append('sku', sku.trim())
     fd.append('price', price)
     fd.append('categoryId', String(categoryId))
@@ -113,6 +115,17 @@ export default function NewProduct() {
               <small className={styles.hint}>
                 Bilden laddas upp till <code>/products/…</code> och URL sparas i databasen.
               </small>
+
+              {/* Brand */}
+              <label>
+                Märke
+                <input
+                  type="text"
+                  placeholder="Ange märket"
+                  value={brand}
+                  onChange={e => setBrand(e.target.value)}
+                />
+              </label>
 
               {/* SKU */}
               <label>
