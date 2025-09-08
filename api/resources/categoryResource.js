@@ -8,7 +8,6 @@ const listCategories = (req, res) => {
     return res.json(allCategories); 
 }
 const postCategory = (req, res) => {
-    console.log(req.body);
     const  name = req.body.name;
     const URL = req.file.path;
     insertCategory.run(name, URL);

@@ -21,22 +21,26 @@ db.exec(`
     description TEXT,
     picture_URL TEXT,
     brand       TEXT,
+    sku         TEXT,                -- sku finns nu i schemat
     price       REAL NOT NULL,
     categoryId  INTEGER,
     FOREIGN KEY (categoryId) REFERENCES categories(id)
   )
 `);
 
-// --- Prepared statements ---
+// ---  (categories) ---
 const insertCategory    = db.prepare('INSERT INTO categories (name, URL) VALUES (?, ?)');
 const getCategoryById   = db.prepare('SELECT * FROM categories WHERE id = ?');
 const getCategoryByName = db.prepare('SELECT * FROM categories WHERE LOWER(name) = LOWER(?)');
 const getAllCategories  = db.prepare('SELECT * FROM categories');
 
-const insertProduct     = db.prepare('INSERT INTO products (name, description, picture_URL, brand, sku, price, categoryId) VALUES (?, ?, ?, ?, ?, ?, ?)');
+// --- (products) ---
+const insertProduct = db.prepare(`
+  INSERT INTO products (name, description, picture_URL, brand, sku, price, categoryId)
+  VALUES (?, ?, ?, ?, ?, ?, ?)
+`);
 
-// Ta med kategoriinfo (bra för sök och seed)
-const getAllProducts    = db.prepare(`
+const getAllProducts = db.prepare(`
   SELECT
     p.id, p.name, p.description, p.picture_URL, p.brand, p.price, p.categoryId,
     c.name AS categoryName
@@ -45,7 +49,6 @@ const getAllProducts    = db.prepare(`
   ORDER BY p.id DESC
 `);
 
-// SQL-sök: namn + brand + beskrivning + kategorinamn (case-insensitive)
 const searchProductsLike = db.prepare(`
   SELECT
     p.id, p.name, p.description, p.picture_URL, p.brand, p.price, p.categoryId,
@@ -59,12 +62,46 @@ const searchProductsLike = db.prepare(`
   ORDER BY p.id DESC
 `);
 
+// --- Detalj + liknande ---
+const getProductById = db.prepare(`
+  SELECT p.id, p.name, p.description, p.picture_URL, p.brand, p.price,
+         p.categoryId, c.name AS categoryName
+  FROM products p
+  LEFT JOIN categories c ON c.id = p.categoryId
+  WHERE p.id = ?
+  LIMIT 1
+`);
+
+const getSimilarInCategory = db.prepare(`
+  SELECT id, name, picture_URL, brand, price, categoryId
+  FROM products
+  WHERE categoryId = ? AND id != ?
+  ORDER BY RANDOM()
+  LIMIT 3
+`);
+
+const getRandomProductsExcept = db.prepare(`
+  SELECT id, name, picture_URL, brand, price, categoryId
+  FROM products
+  WHERE id != ?
+  ORDER BY RANDOM()
+  LIMIT ?
+`);
+
 module.exports = {
+  // categories
   insertCategory,
   getCategoryById,
   getCategoryByName,
   getAllCategories,
+
+  // products
   insertProduct,
   getAllProducts,
   searchProductsLike,
+
+  // detail + similar
+  getProductById,
+  getSimilarInCategory,
+  getRandomProductsExcept,
 };
