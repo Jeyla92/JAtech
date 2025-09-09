@@ -19,22 +19,83 @@
 .productGridContainer {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  grid-template-columns: repeat(1, minmax(0, 1fr)); 
 }
 
 /* ≥ 640px */
 @media (min-width: 640px) {
   .productGridContainer {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 /* ≥ 1024px */
 @media (min-width: 1024px) {
   .productGridContainer {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+.heroContainer {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightgray;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  gap: 8px;
+  img {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+.heroNameAndDescription{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50%;
+}
+
+@media (min-width: 1024px) {
+  .heroContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    img {
+      max-width: 50%
+    }
+  }
+}
+
+.spotsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 8px;
+    img {
+      aspect-ratio: 3/2;
+      object-fit: cover;
+    }
+}
+
+.singleSpotContainer {
+  position: relative;
+  width: 33%;
+  border-radius: 8px;
+}
+
+.spotName {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    color: papayawhip;
+}
+
+@media (max-width: 1023px) {
+  .spotsContainer {
+    display: none;
+  }
+} 
 
 /*  ikonen) */
 .productCard {

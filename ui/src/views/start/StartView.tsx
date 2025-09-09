@@ -14,7 +14,6 @@ export const StartView: React.FC = () => {
 
   return (
     <section style={{ paddingTop: 16 }}>
-      <h2>Välkommen!</h2>
       {loading ? <p>Hämtar produkter…</p> : <ProductGrid products={items} />}
     </section>
   );

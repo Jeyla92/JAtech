@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import styles from "./ProductGrid.module.css";
+import { useEffect, useState } from "react";
 
 export type Product = {
   id: number;
@@ -8,10 +9,58 @@ export type Product = {
   brand: string;        // hos mig används brand som SKU
   price: number;
   pictureURL?: string | null;
+  description: string;
 };
 
 export default function ProductGrid({ products }: { products: Product[] }) {
+
+
+    const [hero, setHero] = useState<Product>();
+
+    const [spots, setSpots] = useState<Product[]>();
+
+    useEffect(() => {
+    const fetchUntilFound = async () => {
+      const id = Math.floor(Math.random() * 10) + 10;
+      const res = await fetch(`http://localhost:3000/api/product/${id}`);
+      const data = await res.json();
+
+      if (data.error === "Not found") {
+        setTimeout(fetchUntilFound, 1000); // try again with a new random id
+      } else {
+        const { product, similar } = data
+        setHero(product);
+        setSpots(similar);
+      }
+    };
+    fetchUntilFound();
+    }, []);
+
   return (
+    <>
+    <div className={styles.heroContainer}>
+      {hero?.pictureURL
+      ? <img src={'../../../' + hero?.pictureURL} alt={hero?.name}
+      style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+      : <span style={{ color:"#999" }}>Ingen bild</span>}
+      <div className={styles.heroNameAndDescription}>
+        <h2>
+          {hero?.name}
+        </h2>
+        <p>
+          {hero?.description}
+        </p>
+      </div>
+    </div>
+    <div className={styles.spotsContainer}>
+        {spots?.map((spot) => (
+            <div className={styles.singleSpotContainer}>
+              <img src={'../../../' + spot?.pictureURL} alt={spot?.name}
+              style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+              <h2 className={styles.spotName}>{spot?.name}</h2>  
+            </div>
+        ))}
+    </div>
     <div className={styles.productGridContainer}>
       {products.map(p => (
         <article key={p.id}
@@ -58,5 +107,6 @@ export default function ProductGrid({ products }: { products: Product[] }) {
         </div>
       )}
     </div>
+    </>
   );
 }
