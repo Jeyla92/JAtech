@@ -1,0 +1,38 @@
+.productHeading {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 12; 
+    gap: 8;
+
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableHeader {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.tableCell {
+    border: 1px solid #eee;
+    padding: 8; 
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+}
+
+.tableCellBorder {
+    border: 1px solid #eee;
+    padding: 8; 
+}
+
+.productImage {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 4;
+}

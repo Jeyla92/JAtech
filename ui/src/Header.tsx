@@ -1,14 +1,20 @@
 // ui/src/Header.tsx
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, ShoppingBasket } from "lucide-react";
 import styles from "./views/start/StartView.module.css";
 
-const kategorier = ["Laptop", "Skärmar", "Stationära Datorer"];
-
 export default function Header() {
   const [term, setTerm] = useState("");
   const navigate = useNavigate();
+
+  const [categories, setCategories] = useState<{ name: string}[]>()
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/list-category')
+    .then((data) => data.json())
+    .then((data) => setCategories(data))
+  }, [])
 
   function goToSearch(q: string) {
     const t = q.trim();
@@ -22,6 +28,12 @@ export default function Header() {
     goToSearch(term);
   }
 
+  const goToCategory = (category: string) => {
+    const t = category.trim();
+    if (!t) return;
+    navigate("/category/" + encodeURIComponent(t));  
+  }
+
   return (
     <div className={styles.startViewContainer}>
       <div>
@@ -33,7 +45,7 @@ export default function Header() {
           {/* Form så Enter i input triggar submit */}
           <form
             onSubmit={onSubmit}
-            style={{ display: "flex", gap: 8, alignItems: "center", flex: 1 }}
+            className={styles.searchBar}
           >
             <input
               type="text"
@@ -41,10 +53,9 @@ export default function Header() {
               value={term}
               onChange={(e) => setTerm(e.target.value)}
               aria-label="Sök produkter"
-              style={{ width: "100%" }}
             />
             {/* dold submit-knapp så Enter fungerar */}
-            <input type="submit" style={{ display: "none" }} />
+            <input type="submit" className="display-none" />
           </form>
 
           <div><Heart /></div>
@@ -55,19 +66,18 @@ export default function Header() {
       {/* Kategorierna navigerar också till söksidan */}
       <div className={styles.categories}>
         <ul>
-          {kategorier.map((kategori) => (
+          {categories?.map((category) => (
             <li
-              key={kategori}
-              onClick={() => goToSearch(kategori)}
+              key={category.name}
+              onClick={() => goToCategory(category.name)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") goToSearch(kategori);
+                if (e.key === "Enter" || e.key === " ") goToCategory(category.name);
               }}
               role="button"
               tabIndex={0}
-              style={{ cursor: "pointer" }}
-              title={`Sök på ${kategori}`}
+              title={`Sök på ${category.name}`}
             >
-              {kategori}
+              {category.name}
             </li>
           ))}
         </ul>

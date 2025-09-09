@@ -13,8 +13,8 @@ export const StartView: React.FC = () => {
   }, []);
 
   return (
-    <section style={{ paddingTop: 16 }}>
-      {loading ? <p>Hämtar produkter…</p> : <ProductGrid products={items} />}
+    <section>
+      {loading ? <p>Hämtar produkter…</p> : <ProductGrid bySearchPage={false} products={items} />}
     </section>
   );
 };

@@ -12,7 +12,7 @@ const uploadCategory = multer({ dest: path.join(__dirname, '../ui/public/categor
 const uploadProduct  = multer({ dest: path.join(__dirname, '../ui/public/products') });
 
 // ✅ Importera resources en gång
-const { getCategoryById, postCategory, listCategories } = require('./resources/categoryResource');
+const { getCategoryById, postCategory, listCategories, getProductsByCategory } = require('./resources/categoryResource');
 const { postProduct, listProducts, searchProducts, getProductDetail } = require('./resources/productResource');
 
 app.use(express.json());
@@ -27,6 +27,7 @@ app.use(cors({
 app.get('/api/category', getCategoryById);
 app.get('/api/list-category', listCategories);
 app.post('/api/category', uploadCategory.single('categoryImage'), postCategory);
+app.get('/api/products-by-category/:category', getProductsByCategory)
 
 // Produkter
 app.get('/api/list-product', listProducts);

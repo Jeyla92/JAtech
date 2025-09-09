@@ -58,6 +58,7 @@
   font-size: 18px;
   line-height: 1.4;
   width: fit-content;
+  cursor: pointer;
 }
 
 /* ============ ≥640px (tablet) ============ */
@@ -152,5 +153,15 @@
   }
   .searchAndIcons > div:first-of-type {
     margin-left: 16px;
+  }
+}
+
+.searchBar {
+  display: "flex";
+  gap: 8; 
+  align-items: "center";
+  flex: 1;
+  input {
+    width: 100%
   }
 }

@@ -112,3 +112,37 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.imageStyle {
+   width: 100%; 
+   height: 100%; 
+   object-fit: cover; 
+}
+
+.productWrapper {
+  border: 1px solid #eee; 
+  border-radius: 12px;
+   padding: 12px; 
+   background: #fff;
+}
+
+.productWrapperContent {
+  position: relative;
+  aspect-ratio: 3/4;
+  background: #f6f6f6;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.link {
+  color: inherit;
+}
+
+.namePriceAndBrand {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}

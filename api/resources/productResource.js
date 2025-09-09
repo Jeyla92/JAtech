@@ -3,8 +3,6 @@ const {
   insertProduct,
   getAllProducts,
   searchProductsLike,
-  insertCategory,
-  getCategoryByName,
   getProductById,
   getSimilarInCategory,
   getRandomProductsExcept,
@@ -12,14 +10,6 @@ const {
 
 // --- små hjälpare ---
 const clean = (s) => (s || '').replace(/^['"]+|['"]+$/g, '');
-const slugify = (s) =>
-  clean(s)
-    .toLowerCase()
-    .replace(/å/g, 'a')
-    .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
 
 // Normalisera sökväg från form (stöder både Windows- och webbstigar)
 function normalizePublicPath(raw) {
@@ -67,6 +57,7 @@ const listProducts = (req, res) => {
       price: p.price,
       categoryId: p.categoryId ?? null,
       categoryName: p.categoryName || null,
+      SKU: p.sku || null,
     }));
     res.json(mapped);
   } catch (e) {

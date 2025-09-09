@@ -32,7 +32,7 @@ export default function App() {
           <Route path="/product/:id" element={<ProductPage />} />
 
           <Route path="/category" element={<CategoryPage />} />
-          <Route path="/category/:slug" element={<CategoryPage />} />
+          <Route path="/category/:category" element={<CategoryPage />} />
 
           <Route path="/search" element={<SearchResultsPage />} />
 
@@ -45,7 +45,7 @@ export default function App() {
           <Route path="/admin/categories/new" element={<Navigate to="/admin/categories/new-category" replace />} /> */}
 
           {/* 404 */}
-          <Route path="*" element={<div style={{ padding: 16 }}><h2>Sidan finns inte</h2></div>} />
+          <Route path="*" element={<div><h2>Sidan finns inte</h2></div>} />
         </Route>
       </Routes>
     </BrowserRouter>

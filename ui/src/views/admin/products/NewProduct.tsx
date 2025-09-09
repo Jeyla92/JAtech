@@ -172,7 +172,7 @@ export default function NewProduct() {
                 </button>
               </div>
 
-              {error && <p style={{ color: 'red', marginTop: 6 }}>{error}</p>}
+              {error && <p>{error}</p>}
             </form>
           </div>
         </main>

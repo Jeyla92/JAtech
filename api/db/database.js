@@ -42,7 +42,7 @@ const insertProduct = db.prepare(`
 
 const getAllProducts = db.prepare(`
   SELECT
-    p.id, p.name, p.description, p.picture_URL, p.brand, p.price, p.categoryId,
+    p.id, p.name, p.description, p.picture_URL, p.brand, p.price, p.categoryId, p.sku,
     c.name AS categoryName
   FROM products p
   LEFT JOIN categories c ON c.id = p.categoryId
@@ -88,12 +88,20 @@ const getRandomProductsExcept = db.prepare(`
   LIMIT ?
 `);
 
+const selectProductsByCategory = db.prepare(`
+  SELECT products.id, products.name, picture_URL as pictureURL, brand, price, categoryId
+  FROM products, categories
+  WHERE categoryId = categories.id
+  AND categories.name LIKE ?
+`);
+
 module.exports = {
   // categories
   insertCategory,
   getCategoryById,
   getCategoryByName,
   getAllCategories,
+  selectProductsByCategory,
 
   // products
   insertProduct,

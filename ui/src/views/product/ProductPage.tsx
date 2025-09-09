@@ -32,7 +32,6 @@ export default function ProductPage() {
         const res = await fetch(`http://localhost:3000/api/product/${id}`);
         if (!res.ok) throw new Error("Kunde inte hämta produkt");
         const data = await res.json();
-        console.log(data);
         if (!ignore) {
           setProduct(data.product);
           setSimilar(data.similar ?? []);
@@ -61,7 +60,7 @@ export default function ProductPage() {
           {product.pictureURL ? (
             <img src={'../../../' + product.pictureURL} alt={product.name} />
           ) : (
-            <div style={{ padding: 40, textAlign: "center", color: "#777" }}>
+            <div>
               Ingen bild
             </div>
           )}
@@ -91,15 +90,15 @@ export default function ProductPage() {
                 {s.pictureURL ? (
                   <img src={'../../../' + s.pictureURL} alt={s.name} />
                 ) : (
-                  <div style={{ color: "#777", textAlign: "center", paddingTop: 40 }}>
+                  <div>
                     Ingen bild
                   </div>
                 )}
               </div>
               <div className={styles.cardMeta}>
                 <div>
-                  <div>{s.name}</div>
-                  <div style={{ fontSize: 12, color: "#666" }}>{s.brand}</div>
+                  <h3>{s.name}</h3>
+                  <h4>{s.brand}</h4>
                 </div>
                 <div>{s.price} SEK</div>
               </div>

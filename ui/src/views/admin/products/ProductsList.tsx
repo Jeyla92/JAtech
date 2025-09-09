@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styles from './ProductList.module.css'
 
 type Product = {
   id: number;
@@ -33,23 +34,8 @@ export default function ProductsList() {
 
   useEffect(() => { load(); }, []);
 
-  async function handleSeed() {
-    try {
-      setSeeding(true);
-      setError(null);
-      const r = await fetch('http://localhost:3000/api/dev/seed-all', { method: 'POST' });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      await r.json();
-      await load(); // ladda om listan när seeden är klar
-    } catch (e: any) {
-      setError(e.message || 'Kunde inte skapa demodata.');
-    } finally {
-      setSeeding(false);
-    }
-  }
-
   if (loading) return <div>Loading…</div>;
-  if (error) return <div style={{ color: 'red' }}>Fel: {error}</div>;
+  if (error) return <div>Fel: {error}</div>;
 
   return (
     <div className="admin-container">
@@ -61,44 +47,44 @@ export default function ProductsList() {
           <a href="/admin/categories/list-categories">Kategorier</a>
         </div>
 
-        <div style={{ flex: 1, padding: '16px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, gap: 8 }}>
-            <h2>Produkter <small style={{ color: '#666', fontWeight: 400 }}>({items.length})</small></h2>
-            <div style={{ display: 'flex', gap: 8 }}>
+        <div>
+          <div className={styles.productHeading}>
+            <h2>Produkter <small>({items.length})</small></h2>
+            <div>
               <Link to="/admin/products/new"><button>Ny produkt</button></Link>
             </div>
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <table className={styles.table}>
             <thead>
               <tr>
-                <th style={{ border: '1px solid #ccc', padding: 8, textAlign: 'left' }}>Namn</th>
-                <th style={{ border: '1px solid #ccc', padding: 8, textAlign: 'left' }}>Kategori</th>
-                <th style={{ border: '1px solid #ccc', padding: 8, textAlign: 'left' }}>SKU/Brand</th>
-                <th style={{ border: '1px solid #ccc', padding: 8, textAlign: 'right' }}>Pris</th>
+                <th className={styles.tableHeader}>Namn</th>
+                <th className={styles.tableHeader}>Kategori</th>
+                <th className={styles.tableHeader}>SKU</th>
+                <th className={styles.tableHeader}>Pris</th>
               </tr>
             </thead>
             <tbody>
               {items.map(p => (
                 <tr key={p.id}>
-                  <td style={{ border: '1px solid #eee', padding: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <td className={styles.tableCell}>
                     {p.pictureURL ? (
                       <img
                         src={'../../../../' + p.pictureURL}
                         alt=""
-                        style={{ width: 36, height: 36, objectFit: 'cover', borderRadius: 4 }}
+                        className={styles.productImage}
                       />
                     ) : null}
                     {p.name}
                   </td>
-                  <td style={{ border: '1px solid #eee', padding: 8 }}>{p.categoryName ?? ''}</td>
-                  <td style={{ border: '1px solid #eee', padding: 8 }}>{p.brand}</td>
-                  <td style={{ border: '1px solid #eee', padding: 8, textAlign: 'right' }}>{p.price}</td>
+                  <td className={styles.tableCellBorder}>{p.categoryName ?? ''}</td>
+                  <td className={styles.tableCellBorder}>{p.SKU}</td>
+                  <td className={styles.tableCellBorder}>{p.price}</td>
                 </tr>
               ))}
               {items.length === 0 && (
                 <tr>
-                  <td colSpan={4} style={{ padding: 12, textAlign: 'center', color: '#666' }}>
+                  <td colSpan={4}>
                     Inga produkter ännu.
                   </td>
                 </tr>
